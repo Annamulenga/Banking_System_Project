@@ -16,7 +16,7 @@ import random  # For generating account numbers
 
 
 def load_accounts():
-    """Loads account data from accounts.txt."""
+
     try:
         with open("accounts.txt", "r") as file:
             accounts = [line.strip().split(",") for line in file]
@@ -29,7 +29,7 @@ def load_accounts():
     return accounts
 
 def save_accounts(accounts):
-    """Saves account data to accounts.txt."""
+    
     try:
         with open("accounts.txt", "w") as file:
             for account in accounts:
@@ -43,7 +43,7 @@ def save_accounts(accounts):
 
 
 def create_account(accounts):
-    """Creates a new account with a unique number."""
+   
     try:
         name = input("Enter account holder name: ")
         account_number = str(random.randint(1000000000, 9999999999))
@@ -51,11 +51,17 @@ def create_account(accounts):
         accounts.append([name, account_number, str(initial_balance)])
         print(f"Account successfully created for {name} with account number: {account_number}")
     except Exception as e:
-        print(f"Apologies, an error occurred while creating account: {e}\nPlease try again later.")
+        print(f"An error occurred while creating account: {e}\nPlease try again later.")
     return accounts
 
+''' Finds an account by account number
+    It iterates through the accounts list and checks if the account number matches
+    If a match is found, it returns the account
+    If no match is found, it returns None
+    It handles exceptions for invalid input and unexpected errors'''
+
 def find_account(accounts, account_number):
-    """Helper function to find an account by number."""
+   
     for account in accounts:
         if len(account) > 1 and account[1] == account_number:
             return account
@@ -69,7 +75,7 @@ def find_account(accounts, account_number):
      It handles exceptions for invalid input and unexpected errors'''
 
 def deposit(accounts):
-    """Deposits money into an existing account."""
+   
     account_number = input("Enter account number: ")
     account = find_account(accounts, account_number)
     if not account:
@@ -85,7 +91,7 @@ def deposit(accounts):
     except ValueError as e:
         print(f"Invalid input: {e}")
     except Exception as e:
-        print(f"An error occurred during deposit: {e}")
+        print(f"An error occurred during deposit: {e}\nPlease try again.")
     return accounts
 
 ''' Withdraws money from an existing account
@@ -114,7 +120,7 @@ def withdraw(accounts):
     except ValueError as e:
         print(f"Invalid input: {e}")
     except Exception as e:
-        print(f"An error occurred during withdrawal: {e}")
+        print(f"An error occurred during withdrawal: {e}\NPlease try again.")
     return accounts
 
 ''' Displays the balance of an account
@@ -132,12 +138,13 @@ def display_balance(accounts):
     try:
         print(f"Account holder: {account[0]}, Balance: {account[2]}")
     except Exception as e:
-        print(f"An error occurred while displaying balance: {e}")
+        print(f"An error occurred while displaying balance: {e}\nPlease try again.")
     return accounts
 
-# The main function to run the banking system
-# It includes a menu for the user to select options
-# and handles the flow of the program
+''' The main function to run the banking system
+    It includes a menu for the user to select options
+    and handles the flow of the program'''
+
 def main():
     accounts = load_accounts()
 
@@ -169,7 +176,7 @@ def main():
         except ValueError:
             print("Invalid input. Please enter a number.")
         except Exception as e:
-            print(f"An unexpected error occurred: {e}")
+            print(f"An unexpected error occurred: {e}\nPlease try again.")
         save_accounts(accounts)
 
 if __name__ == "__main__":
